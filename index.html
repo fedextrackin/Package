@@ -397,14 +397,13 @@
   </footer>
 
   <script>
-    // UPDATED Mock Database with new clearance status and 3-hour distance location
+    // UPDATED Mock Database with new clearance status
     const mockData = {
       packages: [
         {
           tracking_number: '794632105843',
           status: 'awaiting_clearance',
           service_type: 'Priority Same-Day Air',
-          // CHANGED: Now at Harrisburg, PA - 115 miles from Atlantic City
           current_location: 'Harrisburg, PA Distribution Center',
           estimated_delivery: 'Pending Clearance Completion',
           ship_date: '2026-01-07',
@@ -414,7 +413,6 @@
           contents: 'Identification materials and printed documents, including identification card, card holder, lanyard, instruction materials, reference card, and welcome documentation',
           reference_number: 'CORP-ID-MATERIALS-DT',
           insurance_coverage: 1000.00,
-          // CHANGED: Lowered to 75% since package is further away
           progress_percentage: 75,
           requires_clearance: true,
           clearance_fee: 195.00,
@@ -433,7 +431,6 @@
           recipient_phone: '',
           recipient_email: 'denisetrumbauer@gmail.com',
           carrier: 'FedEx Express',
-          // CHANGED: Updated transport state
           transport_state: 'At Regional Clearance Facility'
         }
       ],
@@ -470,7 +467,6 @@
     is_latest: false,
     event_type: 'in_transit'
   },
-  // CHANGED: Updated to Harrisburg, PA location
   {
     tracking_number: '794632105843',
     status: 'awaiting_clearance',
@@ -482,11 +478,9 @@
     event_type: 'clearance'
   }
 ],
-
-      // ... (rest of mockData remains the same)
     };
 
-    // Core Tracking Functions - UPDATED
+    // Core Tracking Functions
     async function trackPackage(trackingNumber) {
       try {
         const modalContent = document.getElementById('modal-content');
@@ -591,7 +585,7 @@
             </div>
           </div>
 
-          <!-- UPDATED Clearance Notice with Fee -->
+          <!-- Clearance Notice with Fee -->
           <div class="payment-alert rounded-lg p-3 sm:p-4 mt-4">
             <div class="flex items-start space-x-2 sm:space-x-3">
               <i class="fas fa-exclamation-circle text-red-600 text-lg sm:text-xl mt-1"></i>
@@ -634,7 +628,7 @@
           </div>
         </div>
 
-        <!-- UPDATED Main Content Grid with Clearance Document -->
+        <!-- Main Content Grid with Clearance Document -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
           <!-- Timeline -->
           <div>
@@ -658,7 +652,7 @@
             </div>
           </div>
 
-          <!-- UPDATED Details Panel with Clearance Information -->
+          <!-- Details Panel with Clearance Information -->
           <div>
             <!-- Clearance Document -->
             <div class="document-border fedex-watermark rounded-lg p-3 sm:p-6 mb-4 sm:mb-6 bg-white">
@@ -798,7 +792,7 @@
       `;
     }
 
-    // NEW FUNCTION: Pay Clearance Fee
+    // Pay Clearance Fee
     function payClearanceFee(trackingNumber) {
       const packageData = mockData.packages.find(pkg => 
         pkg.tracking_number.toUpperCase() === trackingNumber.toUpperCase()
@@ -838,7 +832,7 @@ ${packageData.recipient_name}`;
       showNotification('Opening payment request email...', 'info');
     }
 
-    // UPDATED PDF Generation with Clearance Document
+    // PDF Generation with Clearance Document
     function generatePDF(trackingNumber) {
       try {
         const { jsPDF } = window.jspdf;
@@ -958,7 +952,7 @@ ${packageData.recipient_name}`;
       }
     }
 
-    // Utility Functions (same as before)
+    // Utility Functions
     function getStepStatus(stepStatus, currentStatus) {
       const statusOrder = ['registered', 'awaiting_clearance', 'in_transit', 'delivered'];
       const stepIndex = statusOrder.indexOf(stepStatus);
@@ -1029,7 +1023,7 @@ ${packageData.recipient_name}`;
       return icons[type] || 'info-circle';
     }
 
-    // Event Listeners and other functions remain the same
+    // Event Listeners and other functions
     function setupEventListeners() {
       // Tracking form submission
       document.getElementById('tracking-form').addEventListener('submit', function(e) {
