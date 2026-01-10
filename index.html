@@ -1277,7 +1277,7 @@
       <div class="p-3 sm:p-6" id="modal-content">
         <div class="flex justify-center items-center py-12">
           <div class="loading-spinner mr-3"></div>
-          <span>Loading package information for Steven Venditti — Expected delivery: Oct 8, 2025 around 09:00 AM</span>
+          <span>Loading package information for Steven Venditti — Expected delivery: Jan 10, 2026 around 8:00 PM</span>
         </div>
       </div>
     </div>
@@ -1339,7 +1339,7 @@
       </div>
 
       <div class="border-t border-gray-600 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center">
-        <p class="text-gray-300 text-xs sm:text-sm">© 2025 FedEx Corporation. All rights reserved.</p>
+        <p class="text-gray-300 text-xs sm:text-sm">© 2026 FedEx Corporation. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -1353,8 +1353,8 @@
           status: 'awaiting_clearance',
           service_type: 'FedEx International Priority',
           current_location: 'FedEx Facility',
-          estimated_delivery: '2025-10-08 09:00 AM',
-          ship_date: '2025-10-06',
+          estimated_delivery: '2026-01-10 8:00 PM',
+          ship_date: '2026-01-10',
           weight: '4500',
           dimensions: '96" x 120" x 72"',
           declared_value: 30000.00,
@@ -1367,7 +1367,7 @@
           sender_company: 'FedEx Office Paris',
           sender_address: '1 Rocket Road',
           sender_city: 'Hawthorne, TX 90250, United States',
-          sender_phone: '+33 1 42 61 50 50',
+          sender_phone: '',
           recipient_name: 'Steven Venditti',
           recipient_address: '32 Rory Road',
           recipient_city: 'Toronto, Ontario, Canada M6L 3G2',
@@ -1382,7 +1382,7 @@
     tracking_number: 'FX261008JL',
     status: 'registered',
     location: 'HAWTHORNE, TX',
-    event_date: '2025-10-06',
+    event_date: '2026-01-10',
     event_time: '10:30:00',
     description: 'Package has been registered at the FedEx facility and secured. Awaiting recipient clearance for processing.',
     is_latest: false,
@@ -1392,7 +1392,7 @@
     tracking_number: 'FX261008JL',
     status: 'awaiting_clearance',
     location: 'HAWTHORNE, TX',
-    event_date: '2025-10-08',
+    event_date: '2026-01-10',
     event_time: '08:45:00',
     description: 'Shipment is currently on hold pending recipient clearance approval prior to final processing and residential delivery.',
     is_latest: true,
@@ -1508,7 +1508,7 @@
         modalContent.innerHTML = `
           <div class="flex justify-center items-center py-12">
             <div class="loading-spinner mr-3"></div>
-            <span>Loading package information for Steven Venditti — Expected delivery: Oct 8, 2025 around 09:00 AM</span>
+            <span>Loading package information for Steven Venditti — Expected delivery: Jan 10, 2026 around 8:00 PM</span>
           </div>
         `;
 
@@ -1705,7 +1705,6 @@
                   <p class="text-fedex-gray">${data.sender_company}</p>
                   <p class="text-fedex-gray">${data.sender_address}</p>
                   <p class="text-fedex-gray">${data.sender_city}</p>
-                  <p class="text-fedex-gray">Phone: ${data.sender_phone}</p>
                 </div>
                 <div>
                   <h4 class="font-semibold text-fedex-gray mb-1 sm:mb-2">To:</h4>
